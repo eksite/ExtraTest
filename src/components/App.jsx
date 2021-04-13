@@ -6,21 +6,24 @@ import "./styles.css";
 
 const App = () => {
   const data = useLoadData("data.json");
-  console.log(data);
   const Row = ({ index, style }) => (
     <div style={style}>
-      {/*  */}
-      {data ? <>{console.log(data[index].age)}</> : smth}
+      <div>{data[index]._id}</div>
+      <div>{data[index].name}</div>
+      <div>{data[index].age}</div>
+      <div>{data[index].gender}</div>
+      <div>{data[index].email}</div>
+      {console.log(data[index])}
     </div>
   );
-  return data ? (
+  return data.length ? (
     <div style={{ height: "100%", width: "100%" }}>
       <AutoSizer>
         {({ height, width }) => (
           <List
             className="List"
             height={height}
-            itemCount={1000}
+            itemCount={data.length}
             itemSize={50}
             width={width}
           >

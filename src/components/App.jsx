@@ -7,13 +7,19 @@ import "./styles.css";
 const App = () => {
   const data = useLoadData("data.json");
   const Row = ({ index, style }) => (
-    <div style={style}>
+    <div
+      style={{
+        ...style,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+      }}
+    >
       <div>{data[index]._id}</div>
       <div>{data[index].name}</div>
       <div>{data[index].age}</div>
       <div>{data[index].gender}</div>
       <div>{data[index].email}</div>
-      {console.log(data[index])}
     </div>
   );
   return data.length ? (

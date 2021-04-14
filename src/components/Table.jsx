@@ -2,16 +2,10 @@ import React from "react";
 import Row from "./Row.jsx";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeList as List } from "react-window";
-import { useDataState } from "../context/DataContext.jsx";
-import memoize from "memoize-one";
-
-const createItemData = memoize((items) => ({
-  items,
-}));
+import { useSelector, useDispatch } from "react-redux";
 
 const Table = ({ size }) => {
-  const state = useDataState();
-  const itemData = createItemData(state.data);
+  const data = useSelector((state) => state.dataJson.data);
   return (
     <>
       <div
@@ -37,7 +31,7 @@ const Table = ({ size }) => {
               itemCount={size}
               itemSize={20}
               width={width}
-              itemData={itemData}
+              itemData={data}
             >
               {Row}
             </List>

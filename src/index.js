@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App.jsx";
-import { DataProvider } from "./context/DataContext.jsx";
-import "./styles/style.css"
+import store from './redux/store.jsx'
+import { Provider } from "react-redux";
+import "./styles/style.css";
 
 ReactDOM.render(
-  <DataProvider>
+  <Provider store={store}>
     <App />
-  </DataProvider>,
+  </Provider>,
   document.getElementById("root")
 );

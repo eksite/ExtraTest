@@ -5,7 +5,7 @@ const DataDispatchContext = createContext();
 let dataId = 0;
 
 const initialState = {
-  tasks: [],
+  data: [],
 };
 
 const createRow = () => {};
@@ -24,7 +24,10 @@ const taskReducer = (state, action) => {
     case "REMOVE_ROW": {
       return state;
     }
-    case "ADD_FROM_JSON": {
+    case "READ_FROM_JSON": {
+      if (action.payload.data) {
+        return { ...state, data: action.payload.data };
+      }
       return state;
     }
     default:
@@ -32,7 +35,7 @@ const taskReducer = (state, action) => {
   }
 };
 
-const TasksProvider = ({ children }) => {
+const DataProvider = ({ children }) => {
   const [state, dispatch] = useReducer(taskReducer, initialState);
   const addData = () => {
     dispatch({ type: "ADD_TASK" });
@@ -45,8 +48,8 @@ const TasksProvider = ({ children }) => {
     dispatch({ type: "EDIT_TASK" });
   };
 
-  const addFromJson = () => {
-    dispatch({ type: "ADD_FROM_JSON" });
+  const readFromJson = (data) => {
+    dispatch({ type: "READ_FROM_JSON", payload: { data } });
   };
 
   return (
@@ -57,7 +60,7 @@ const TasksProvider = ({ children }) => {
           addData,
           removeData,
           editData,
-          addFromJson,
+          readFromJson,
         }}
       >
         {children}
@@ -82,4 +85,4 @@ const useDataState = () => {
   return context;
 };
 
-export { TasksProvider, useDataState, useDataDispatch };
+export { DataProvider, useDataState, useDataDispatch };

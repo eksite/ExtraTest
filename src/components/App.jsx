@@ -1,45 +1,30 @@
-import React from "react";
-import useLoadData from "../hooks/useLoadData.jsx";
-import { FixedSizeList as List } from "react-window";
-import AutoSizer from "react-virtualized-auto-sizer";
-import "./styles.css";
+import React, { useEffect } from "react";
+import { useDataState, useDataDispatch } from "../context/DataContext.jsx";
+import Header from "./Header.jsx";
+import Table from "./Table.jsx";
 
 const App = () => {
-  const data = useLoadData("data.json");
-  const Row = ({ index, style }) => (
-    <div
-      style={{
-        ...style,
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-around",
-      }}
-    >
-      <div>{data[index]._id}</div>
-      <div>{data[index].name}</div>
-      <div>{data[index].age}</div>
-      <div>{data[index].gender}</div>
-      <div>{data[index].email}</div>
-    </div>
-  );
-  return data.length ? (
-    <div style={{ height: "100%", width: "100%" }}>
-      <AutoSizer>
-        {({ height, width }) => (
-          <List
-            className="List"
-            height={height}
-            itemCount={data.length}
-            itemSize={50}
-            width={width}
-          >
-            {Row}
-          </List>
-        )}
-      </AutoSizer>
-    </div>
-  ) : (
-    <div>loading...</div>
+  const { readFromJson } = useDataDispatch();
+  const state = useDataState();
+
+  const loadData = async () => {
+    const result = await fetch("data.json").then((res) => res.json());
+    readFromJson(result);
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  return (
+    <>
+      <Header />
+      {state.data.length ? (
+        <Table size={state.data.length} />
+      ) : (
+        <div>loading...</div>
+      )}
+    </>
   );
 };
 export default App;

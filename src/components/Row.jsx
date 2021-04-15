@@ -1,7 +1,7 @@
-import React, { memo } from "react";
-import { areEqual } from "react-window";
+import React from "react";
 
-const Row = ({ data, isScrolling, index, style }) => {
+
+const Row = ({ isScrolling, data, index, style }) => {
   return (
     <div
       className="row"

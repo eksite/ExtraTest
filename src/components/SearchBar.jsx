@@ -1,7 +1,8 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import { editField } from '../redux/fieldSlice.jsx';
-import {debounce} from 'lodash'
+import {debounce} from 'lodash';
+
 const SearchBar = () => {
     const dispatch = useDispatch();
     const data = useSelector((state)=>state.field.text)

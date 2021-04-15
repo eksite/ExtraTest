@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loadFromJson } from "../redux/dataSlice.jsx";
 import Header from "./Header.jsx";
 import Table from "./Table.jsx";
-import Search from "./Search.jsx"
+import SearchBar from "./SearchBar.jsx"
 
 
 const App = () => {
@@ -14,7 +14,6 @@ const App = () => {
     dispatch(loadFromJson({ data: result }));
   };
   const data = useSelector((state) => state.data.data)
-  // const data = useSelector((state) => state.data.data);
 
   useEffect(() => {
     loadData();
@@ -23,7 +22,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <Search />
+      <SearchBar />
       {data.length ? <Table size={data.length} /> : <div>loading...</div>}
     </>
   );

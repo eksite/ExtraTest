@@ -2,7 +2,7 @@ import React from "react";
 import Row from "./Row.jsx";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeList as List } from "react-window";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const filter = (data, text) => {
   if (isNaN(text)) {

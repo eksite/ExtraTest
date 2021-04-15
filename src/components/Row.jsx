@@ -1,7 +1,8 @@
 import React, { memo } from "react";
 import { areEqual } from "react-window";
 
-const Row = ({ isScrolling, data, index, style }) => {
+const Row = ({ data, isScrolling, index, style }) => {
+  console.log(index)
   return (
     <div
       className="row"

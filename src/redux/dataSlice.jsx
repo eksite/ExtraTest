@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const dataSlice = createSlice({
-  name: "dataJson",
+  name: "data",
   initialState: {
     data: [],
   },
@@ -12,7 +12,7 @@ export const dataSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
+
 export const { loadFromJson } = dataSlice.actions;
 
 export default dataSlice.reducer;

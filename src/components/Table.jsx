@@ -4,8 +4,12 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeList as List } from "react-window";
 import { useSelector, useDispatch } from "react-redux";
 
-const Table = ({ size }) => {
-  const data = useSelector((state) => state.dataJson.data);
+
+const Table = () => {
+  const data = useSelector((state) => state.field.text ? state.data.data.filter(item=>item.name.toLowerCase().includes(state.field.text)) : state.data.data)
+  const size = data.length
+  const text = useSelector((state) => state.field)
+  console.log(text.type)
   return (
     <>
       <div

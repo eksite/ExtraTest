@@ -4,12 +4,24 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeList as List } from "react-window";
 import { useSelector, useDispatch } from "react-redux";
 
+const filter = (data, text) => {
+  if (isNaN(text)) {
+    return data.filter(
+      (item) => item.name.toLowerCase().includes(text) || item.email.toLowerCase().includes(text)
+    );
+  } else {
+    return data.filter((item) => item._id == text || item.age == text);
+  }
+};
 
 const Table = () => {
-  const data = useSelector((state) => state.field.text ? state.data.data.filter(item=>item.name.toLowerCase().includes(state.field.text)) : state.data.data)
-  const size = data.length
-  const text = useSelector((state) => state.field)
-  console.log(text.type)
+  const data = useSelector((state) => {
+    const filterText = state.field.text;
+    const data = state.data.data;
+   return filterText ? filter(data, filterText) : state.data.data
+  });
+  const size = data.length;
+
   return (
     <>
       <div

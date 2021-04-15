@@ -2,7 +2,6 @@ import React, { memo } from "react";
 import { areEqual } from "react-window";
 
 const Row = ({ data, isScrolling, index, style }) => {
-  console.log(index)
   return (
     <div
       className="row"
@@ -22,7 +21,6 @@ const Row = ({ data, isScrolling, index, style }) => {
           <div>{data[index].age}</div>
           <div>{data[index].gender}</div>
           <div>{data[index].email}</div>
-          {console.log(data)}
         </>
       )}
     </div>

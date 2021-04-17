@@ -2,8 +2,8 @@ const filterByKey = (data, text) => {
   if (isNaN(text)) {
     return data.filter(
       (item) =>
-        item.name.toLowerCase().includes(text) ||
-        item.email.toLowerCase().includes(text)
+        item.name.toLowerCase().includes(text.toLowerCase()) ||
+        item.email.toLowerCase().includes(text.toLowerCase())
     );
   } else {
     return data.filter((item) => item._id == text || item.age == text);

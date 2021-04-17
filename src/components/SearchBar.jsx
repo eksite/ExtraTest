@@ -19,6 +19,7 @@ const Container = Styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 8px;
 `;
 
 const SearchBar = () => {

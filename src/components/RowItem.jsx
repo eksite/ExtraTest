@@ -28,7 +28,7 @@ const RowItemContainer = Styled.div`
   };
 `;
 
-const RowItem = ({ data, style, index }) => {
+const TableRow = ({ data, style, index }) => {
   console.log(data[index]);
   const { _id, name, age, gender, email } = data[index];
   const [newName, setNewName] = useState(name);
@@ -100,4 +100,4 @@ const RowItem = ({ data, style, index }) => {
   );
 };
 
-export default RowItem;
+export default TableRow;

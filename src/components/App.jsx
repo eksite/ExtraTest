@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loadFromJson } from "../redux/dataSlice.jsx";
 import Header from "./Header.jsx";
-import Table from "./Table.jsx";
+import Page from "./Page.jsx";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -11,7 +11,6 @@ const App = () => {
     const result = await fetch("data.json").then((res) => res.json());
     dispatch(loadFromJson({ data: result }));
   };
-  const data = useSelector((state) => state.dataFromJson.data);
 
   useEffect(() => {
     loadData();
@@ -20,7 +19,7 @@ const App = () => {
   return (
     <>
       <Header />
-      {data.length ? <Table /> : <div>loading...</div>}
+      <Page />
     </>
   );
 };

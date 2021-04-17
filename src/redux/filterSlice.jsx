@@ -16,7 +16,6 @@ export const filterSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { editFilter, changeSortedWay } = filterSlice.actions;
 
 export default filterSlice.reducer;

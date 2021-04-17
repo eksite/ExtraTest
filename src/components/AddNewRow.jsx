@@ -23,34 +23,38 @@ const EMAIL_REGEX = new RegExp("^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+.)+[A-Za-z]+$");
 const initialState = {
   name: "",
   age: 0,
-  gender: "",
   email: "",
   gender: "male",
   nameError: false,
   ageError: false,
-  genderError: false,
   emailError: false,
+};
+
+const ACTIONS = {
+  RESET_STATE: "reset_state",
+  VALIDATE_DATA: "validate_data",
+  UPDATE_VALUE: "update_value",
 };
 
 const rowReducer = (state, action) => {
   switch (action.type) {
-    case "REFRESH_INPUTS":
+    case ACTIONS.RESET_STATE:
       return { ...state, name: "", age: 0, gender: "male", email: "" };
-    case "VALIDATE_DATA": {
+    case ACTIONS.VALIDATE_DATA: {
       if (state.name.length < 0) {
         return { ...state, nameError: true };
       }
       if (state.age < 0 && state.age > 150) {
         return { ...state, ageError: true, nameError: false };
       }
-      console.log(state.nameError, state.ageError, state.emailError, "before");
+
       if (!EMAIL_REGEX.test(state.email)) {
         return { ...state, emailError: true, ageError: false };
       }
 
       return { ...state, emailError: false, ageError: false, nameError: false };
     }
-    case "CHANGE_FIELD_VALUE": {
+    case ACTIONS.UPDATE_VALUE: {
       return { ...state, [action.payload.key]: action.payload.value };
     }
     default:
@@ -62,23 +66,8 @@ const AddNewRow = () => {
   const reduxDispatch = useDispatch();
   const [state, dispatch] = useReducer(rowReducer, initialState);
 
-  const validateData = () => {
-    dispatch({ type: "VALIDATE_DATA" });
-  };
-
-  const refreshData = () => {
-    dispatch({ type: "REFRESH_INPUTS" });
-  };
-
-  const changeFieldValue = (value, key) => {
-    dispatch({
-      type: "CHANGE_FIELD_VALUE",
-      payload: { key: key, value: value },
-    });
-  };
-
   const handleSubmit = () => {
-    validateData();
+    dispatch({ type: ACTIONS.VALIDATE_DATA });
     console.log(state.nameError, state.ageError, state.emailError);
     if (!state.nameError && !state.ageError && !state.emailError) {
       reduxDispatch(
@@ -89,7 +78,7 @@ const AddNewRow = () => {
           email: state.email,
         })
       );
-      refreshData();
+      dispatch({ type: ACTIONS.RESET_STATE });
     }
   };
 
@@ -99,19 +88,34 @@ const AddNewRow = () => {
         isError={state.nameError}
         value={state.name}
         placeholder="name"
-        onChange={(e) => changeFieldValue(e.target.value, "name")}
+        onChange={(e) =>
+          dispatch({
+            type: ACTIONS.UPDATE_VALUE,
+            payload: { value: e.target.value, key: "name" },
+          })
+        }
       />
 
       <Input
         isError={state.ageError}
         value={state.age == 0 ? "" : state.age}
         placeholder="age"
-        onChange={(e) => changeFieldValue(e.target.value, "age")}
+        onChange={(e) =>
+          dispatch({
+            type: ACTIONS.UPDATE_VALUE,
+            payload: { value: e.target.value, key: "age" },
+          })
+        }
       />
 
       <Select
         value={state.gender}
-        onChange={(e) => changeFieldValue(e.target.value, "gender")}
+        onChange={(e) =>
+          dispatch({
+            type: ACTIONS.UPDATE_VALUE,
+            payload: { value: e.target.value, key: "gender" },
+          })
+        }
       >
         <MenuItem value={"male"}>Male</MenuItem>
         <MenuItem value={"female"}>Female</MenuItem>
@@ -121,7 +125,12 @@ const AddNewRow = () => {
         isError={state.emailError}
         value={state.email}
         placeholder="email"
-        onChange={(e) => changeFieldValue(e.target.value, "email")}
+        onChange={(e) =>
+          dispatch({
+            type: ACTIONS.UPDATE_VALUE,
+            payload: { value: e.target.value, key: "email" },
+          })
+        }
       />
 
       <AddIcon onClick={handleSubmit} />

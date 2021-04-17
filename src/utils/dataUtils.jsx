@@ -6,7 +6,10 @@ const filterByKey = (data, text) => {
         item.email.toLowerCase().includes(text.toLowerCase())
     );
   } else {
-    return data.filter((item) => item._id == text || item.age == text);
+    return data.filter(
+      (item) =>
+        item._id.toString().includes(text) || item.age.toString().includes(text)
+    );
   }
 };
 

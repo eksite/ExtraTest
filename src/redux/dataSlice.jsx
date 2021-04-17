@@ -14,7 +14,7 @@ export const dataSlice = createSlice({
     addRow: (state, action) => {
       const { name, gender, age, email } = action.payload;
       state.data.push({
-        _id: +ID,
+        _id: ++ID,
         name: name,
         gender: gender,
         age: age,

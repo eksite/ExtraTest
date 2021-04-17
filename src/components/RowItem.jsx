@@ -4,6 +4,20 @@ import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined"
 import { removeRow, editData } from "../redux/dataSlice.jsx";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import DoneIcon from "@material-ui/icons/Done";
+import ClearOutlined from "@material-ui/icons/ClearOutlined";
+import Styled from "styled-components";
+
+const Container = Styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center; 
+`;
+const RowItemContainer = Styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 const RowItem = (data) => {
   const {
@@ -23,48 +37,49 @@ const RowItem = (data) => {
     dispatch(
       editData({ id: _id, name: newName, age: newAge, email: newEmail })
     );
-    setEditToggle(!editToggle);
     refreshInputs();
   };
 
   const refreshInputs = () => {
+    setEditToggle(!editToggle);
     setNewAge(age);
     setNewEmail(email);
     setNewName(name);
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-around",
-      }}
-    >
+    <Container>
       <div>{_id}</div>
       {!editToggle ? (
-        <div>{name}</div>
+        <RowItemContainer>{name}</RowItemContainer>
       ) : (
         <input value={newName} onChange={(e) => setNewName(e.target.value)} />
       )}
       {!editToggle ? (
-        <div>{age}</div>
+        <RowItemContainer>{age}</RowItemContainer>
       ) : (
         <input value={newAge} onChange={(e) => setNewAge(e.target.value)} />
       )}
-      <div>{gender}</div>
+      <RowItemContainer>{gender}</RowItemContainer>
       {!editToggle ? (
-        <div>{email}</div>
+        <RowItemContainer>{email}</RowItemContainer>
       ) : (
         <input value={newEmail} onChange={(e) => setNewEmail(e.target.value)} />
       )}
-      <DeleteForeverOutlinedIcon onClick={removeItem} />
-      {!editToggle ? (
-        <EditOutlinedIcon onClick={() => setEditToggle(!editToggle)} />
-      ) : (
-        <DoneIcon onClick={handleEdit} />
-      )}
-    </div>
+      <div>
+        {!editToggle ? (
+          <>
+            <EditOutlinedIcon onClick={() => setEditToggle(!editToggle)} />
+            <DeleteForeverOutlinedIcon onClick={removeItem} />
+          </>
+        ) : (
+          <>
+            <ClearOutlined onclick={refreshInputs} />
+            <DoneIcon onClick={handleEdit} />
+          </>
+        )}
+      </div>
+    </Container>
   );
 };
 

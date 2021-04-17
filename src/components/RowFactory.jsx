@@ -12,9 +12,7 @@ const RowFactory = () => {
   const [email, setEmail] = useState("");
 
   const handleSubmit = () => {
-      console.log(name, age, gender, email)
     if (name && age && gender && email) {
-        console.log("inside")
       dispatch(addRow({ name: name, age: age, gender: gender, email: email }));
     }
   };
@@ -30,14 +28,14 @@ const RowFactory = () => {
       <div>
         <input
           value={name}
-          placeholder={name}
+          placeholder="name"
           onChange={(e) => setName(e.target.value)}
         />
       </div>
       <div>
         <input
-          value={age}
-          placeholder={age}
+          value={age == 0 ? "" : age}
+          placeholder="age"
           onChange={(e) => setAge(e.target.value)}
         />
       </div>
@@ -50,7 +48,7 @@ const RowFactory = () => {
       <div>
         <input
           value={email}
-          placeholder={email}
+          placeholder="email"
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>

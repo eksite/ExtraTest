@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import Row from "./Row.jsx";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeList as List } from "react-window";
 import { useSelector } from "react-redux";
 import TableHeader from "./TableHeader.jsx";
+import SearchBar from "./SearchBar.jsx";
+import RowFactory from "./RowFactory.jsx";
+import { Button } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
+import RemoveOutlinedIcon from "@material-ui/icons/RemoveOutlined";
+import Styled from "styled-components";
+
+const Container = Styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+const AddRowContainer = Styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: space-between;
+  width: 44%;
+`;
 
 const filterByKey = (data, text) => {
   if (isNaN(text)) {
@@ -40,6 +60,7 @@ const sortA = (item1, item2, key, direction) => {
 };
 
 const Table = () => {
+  const [addRowToggle, setAddRowToggle] = useState(false);
   const data = useSelector((state) => {
     const { text: filterText, filterBy } = state.field;
     const data = state.data.data;
@@ -53,6 +74,11 @@ const Table = () => {
       return state.data.data;
     }
   });
+
+  const handleToggle = () => {
+    setAddRowToggle(!addRowToggle);
+  };
+
   const sortedData = useSelector((state) => {
     const sortedParams = state.sort;
     const newData = data
@@ -65,8 +91,23 @@ const Table = () => {
 
   return (
     <>
+      <SearchBar />
+      <Container>
+        {addRowToggle ? (
+          <AddRowContainer>
+            <Button onClick={handleToggle}>
+              <RemoveOutlinedIcon /> Hide
+            </Button>
+            <RowFactory />
+          </AddRowContainer>
+        ) : (
+          <Button onClick={handleToggle}>
+            <AddIcon /> Add
+          </Button>
+        )}
+      </Container>
       <TableHeader />
-      <div style={{ height: "90%", width: "100%" }}>
+      <div style={{ height: "75%", width: "100%" }}>
         <AutoSizer>
           {({ height, width }) => (
             <List

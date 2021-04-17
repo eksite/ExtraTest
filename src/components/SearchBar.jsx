@@ -5,6 +5,21 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import { debounce } from "lodash";
 import Radio from "@material-ui/core/Radio";
+import Styled from "styled-components";
+
+const RadioContainer = Styled(RadioGroup)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Container = Styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -22,13 +37,13 @@ const SearchBar = () => {
   };
 
   return (
-    <>
-      <input onChange={handleChange} />
-      <RadioGroup value={filterBy} onChange={handleRadio}>
-        <FormControlLabel value="key" control={<Radio />} label="key" />
-        <FormControlLabel value="regex" control={<Radio />} label="regex" />
-      </RadioGroup>
-    </>
+    <Container>
+      <input onChange={handleChange} placeholder="find data"/>
+      <RadioContainer row value={filterBy} onChange={handleRadio} name="customized-radios">
+        <FormControlLabel value="key"  control={<Radio />} label="key" />
+        <FormControlLabel value="regex"  control={<Radio />} label="regex" />
+      </RadioContainer>
+    </Container>
   );
 };
 

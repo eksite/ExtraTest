@@ -3,8 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { loadFromJson } from "../redux/dataSlice.jsx";
 import Header from "./Header.jsx";
 import Table from "./Table.jsx";
-import SearchBar from "./SearchBar.jsx";
-import RowFactory from "./RowFactory.jsx";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -22,8 +20,6 @@ const App = () => {
   return (
     <>
       <Header />
-      <SearchBar />
-      <RowFactory />
       {data.length ? <Table size={data.length} /> : <div>loading...</div>}
     </>
   );

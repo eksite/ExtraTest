@@ -10,14 +10,23 @@ import Styled from "styled-components";
 const Container = Styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   align-items: center; 
+  height: 100%;
+  width: 100%;
+  justify-content: center;
 `;
 const RowItemContainer = Styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-`
+  flex-basis: 18%;
+  &:nth-child(1) {
+    justify-content: center;
+    flex-basis: 10%;
+  };
+  &:nth-child(6) {
+    flex-basis: 8%;
+  };
+`;
 
 const RowItem = (data) => {
   const {
@@ -49,24 +58,33 @@ const RowItem = (data) => {
 
   return (
     <Container>
-      <div>{_id}</div>
+      <RowItemContainer>{_id}</RowItemContainer>
       {!editToggle ? (
         <RowItemContainer>{name}</RowItemContainer>
       ) : (
-        <input value={newName} onChange={(e) => setNewName(e.target.value)} />
+        <RowItemContainer>
+          <input value={newName} onChange={(e) => setNewName(e.target.value)} />
+        </RowItemContainer>
       )}
       {!editToggle ? (
         <RowItemContainer>{age}</RowItemContainer>
       ) : (
-        <input value={newAge} onChange={(e) => setNewAge(e.target.value)} />
+        <RowItemContainer>
+          <input value={newAge} onChange={(e) => setNewAge(e.target.value)} />
+        </RowItemContainer>
       )}
       <RowItemContainer>{gender}</RowItemContainer>
       {!editToggle ? (
         <RowItemContainer>{email}</RowItemContainer>
       ) : (
-        <input value={newEmail} onChange={(e) => setNewEmail(e.target.value)} />
+        <RowItemContainer>
+          <input
+            value={newEmail}
+            onChange={(e) => setNewEmail(e.target.value)}
+          />
+        </RowItemContainer>
       )}
-      <div>
+      <RowItemContainer>
         {!editToggle ? (
           <>
             <EditOutlinedIcon onClick={() => setEditToggle(!editToggle)} />
@@ -74,11 +92,11 @@ const RowItem = (data) => {
           </>
         ) : (
           <>
-            <ClearOutlined onclick={refreshInputs} />
+            <ClearOutlined onClick={refreshInputs} />
             <DoneIcon onClick={handleEdit} />
           </>
         )}
-      </div>
+      </RowItemContainer>
     </Container>
   );
 };

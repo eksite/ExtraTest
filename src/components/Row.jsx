@@ -2,7 +2,7 @@ import React from "react";
 import RowItem from "./RowItem.jsx";
 import Styled from "styled-components";
 
-const Div = Styled.div`
+const Container = Styled.div`
 height: 100%;
 &:hover {
   background-color: #c1c8c7;
@@ -15,9 +15,9 @@ const Row = ({ isScrolling, data, index, style }) => {
       {isScrolling ? (
         "Scrolling"
       ) : (
-        <Div>
+        <Container>
           <RowItem data={data[index]} />
-        </Div>
+        </Container>
       )}
     </div>
   );

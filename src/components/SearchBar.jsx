@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editField, changeSortedWay } from "../redux/fieldSlice.jsx";
+import { editFilter, changeSortedWay } from "../redux/filterSlice.jsx";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import { debounce } from "lodash";
@@ -23,9 +23,9 @@ const Container = Styled.div`
 
 const SearchBar = () => {
   const dispatch = useDispatch();
-  const filterBy = useSelector((state) => state.field.filterBy);
+  const filterBy = useSelector((state) => state.filter.filterBy);
   const delayedHandleChange = debounce((text) => {
-    dispatch(editField({ text: text }));
+    dispatch(editFilter({ text: text }));
   }, 1000);
 
   const handleChange = (e) => {

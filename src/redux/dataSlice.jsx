@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 let ID = 49999;
 
 export const dataSlice = createSlice({
-  name: "data",
+  name: "dataFromJson",
   initialState: {
     data: [],
   },

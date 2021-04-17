@@ -11,7 +11,7 @@ const App = () => {
     const result = await fetch("data.json").then((res) => res.json());
     dispatch(loadFromJson({ data: result }));
   };
-  const data = useSelector((state) => state.data.data);
+  const data = useSelector((state) => state.dataFromJson.data);
 
   useEffect(() => {
     loadData();
@@ -20,7 +20,7 @@ const App = () => {
   return (
     <>
       <Header />
-      {data.length ? <Table size={data.length} /> : <div>loading...</div>}
+      {data.length ? <Table /> : <div>loading...</div>}
     </>
   );
 };

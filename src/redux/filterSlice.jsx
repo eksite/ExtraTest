@@ -1,16 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const fieldSlice = createSlice({
+export const filterSlice = createSlice({
   name: "field",
   initialState: {
-    text: "",
-    type: "",
+    value: "",
     filterBy: "key",
   },
   reducers: {
-    editField: (state, action) => {
-      state.text = action.payload.text;
-      state.type = action.payload.type;
+    editFilter: (state, action) => {
+      state.value = action.payload.text;
     },
     changeSortedWay: (state, action) => {
       state.filterBy = action.payload.filterBy;
@@ -19,6 +17,6 @@ export const fieldSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { editField, changeSortedWay } = fieldSlice.actions;
+export const { editFilter, changeSortedWay } = filterSlice.actions;
 
-export default fieldSlice.reducer;
+export default filterSlice.reducer;

@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { changeSortedKey } from "../redux/sortSlice.jsx";
 
+
 const TableHeader = () => {
   const dispatch = useDispatch();
 
@@ -19,7 +20,7 @@ const TableHeader = () => {
     >
       <div
         onClick={() => {
-          handleClick("id");
+          handleClick("_id");
         }}
       >
         id

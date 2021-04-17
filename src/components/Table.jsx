@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Row from "./Row.jsx";
+import RowItem from "./RowItem.jsx";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeList as List } from "react-window";
 import { useSelector } from "react-redux";
@@ -93,7 +93,7 @@ const Table = () => {
               width={width}
               itemData={sortedData}
             >
-              {Row}
+              {RowItem}
             </List>
           )}
         </AutoSizer>

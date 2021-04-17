@@ -28,10 +28,9 @@ const RowItemContainer = Styled.div`
   };
 `;
 
-const RowItem = (data) => {
-  const {
-    data: { _id, name, age, gender, email },
-  } = data;
+const RowItem = ({ data, style, index }) => {
+  console.log(data[index]);
+  const { _id, name, age, gender, email } = data[index];
   const [newName, setNewName] = useState(name);
   const [newAge, setNewAge] = useState(age);
   const [newEmail, setNewEmail] = useState(email);
@@ -57,7 +56,7 @@ const RowItem = (data) => {
   };
 
   return (
-    <Container>
+    <Container style={style}>
       <RowItemContainer>{_id}</RowItemContainer>
       {!editToggle ? (
         <RowItemContainer>{name}</RowItemContainer>

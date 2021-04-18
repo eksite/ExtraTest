@@ -1,7 +1,9 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { changeSortedKey } from "../redux/sortSlice.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { changeSortingKey } from "../redux/sortSlice.jsx";
 import Styled from "styled-components";
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
 const Container = Styled.div`
   display: flex;
@@ -14,6 +16,7 @@ const Container = Styled.div`
 
 const HeaderItem = Styled.div`
   display: flex;
+  cursor: pointer;
   align-items: center;
   font-weight: bold;
   justify-content: start;
@@ -28,13 +31,20 @@ const HeaderItem = Styled.div`
   };
 `;
 
+const UpArrow = Styled(ArrowUpwardIcon)`
+font-size: 15px !important;
+`;
+
+const DownArrow = Styled(ArrowDownwardIcon)`
+font-size: 15px !important;
+`;
+
 const TableHeader = () => {
   const dispatch = useDispatch();
-
+  const { key, direction } = useSelector((state) => state.sort);
   const handleClick = (key) => {
-    dispatch(changeSortedKey({ key: key }));
+    dispatch(changeSortingKey({ key: key }));
   };
-
   return (
     <Container>
       <HeaderItem
@@ -43,6 +53,15 @@ const TableHeader = () => {
         }}
       >
         Id
+        {key == "_id" ? (
+          direction == "ascending" ? (
+            <DownArrow size="small" />
+          ) : (
+            <UpArrow />
+          )
+        ) : (
+          ""
+        )}
       </HeaderItem>
       <HeaderItem
         onClick={() => {
@@ -50,6 +69,15 @@ const TableHeader = () => {
         }}
       >
         Name
+        {key == "name" ? (
+          direction == "ascending" ? (
+            <DownArrow />
+          ) : (
+            <UpArrow />
+          )
+        ) : (
+          ""
+        )}
       </HeaderItem>
       <HeaderItem
         onClick={() => {
@@ -57,6 +85,15 @@ const TableHeader = () => {
         }}
       >
         Age
+        {key == "age" ? (
+          direction == "ascending" ? (
+            <DownArrow />
+          ) : (
+            <UpArrow />
+          )
+        ) : (
+          ""
+        )}
       </HeaderItem>
       <HeaderItem
         onClick={() => {
@@ -64,6 +101,15 @@ const TableHeader = () => {
         }}
       >
         Gender
+        {key == "gender" ? (
+          direction == "ascending" ? (
+            <DownArrow />
+          ) : (
+            <UpArrow />
+          )
+        ) : (
+          ""
+        )}
       </HeaderItem>
       <HeaderItem
         onClick={() => {
@@ -71,6 +117,15 @@ const TableHeader = () => {
         }}
       >
         Email
+        {key == "email" ? (
+          direction == "ascending" ? (
+            <DownArrow />
+          ) : (
+            <UpArrow />
+          )
+        ) : (
+          ""
+        )}
       </HeaderItem>
       <HeaderItem>Actions</HeaderItem>
     </Container>

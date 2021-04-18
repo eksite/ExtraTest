@@ -7,7 +7,7 @@ export const sortSlice = createSlice({
     direction: "ascending",
   },
   reducers: {
-    changeSortedKey: (state, action) => {
+    changeSortingKey: (state, action) => {
       if (state.key == action.payload.key) {
         state.direction =
           state.direction == "ascending" ? "descending" : "ascending";
@@ -19,6 +19,6 @@ export const sortSlice = createSlice({
   },
 });
 
-export const { changeSortedKey } = sortSlice.actions;
+export const { changeSortingKey } = sortSlice.actions;
 
 export default sortSlice.reducer;

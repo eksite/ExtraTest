@@ -53,15 +53,7 @@ const TableHeader = () => {
         }}
       >
         Id
-        {key == "_id" ? (
-          direction == "ascending" ? (
-            <DownArrow size="small" />
-          ) : (
-            <UpArrow />
-          )
-        ) : (
-          ""
-        )}
+        <SortArrow sortKey={key} headerKey="_id" direction={direction} />
       </HeaderItem>
       <HeaderItem
         onClick={() => {
@@ -69,15 +61,7 @@ const TableHeader = () => {
         }}
       >
         Name
-        {key == "name" ? (
-          direction == "ascending" ? (
-            <DownArrow />
-          ) : (
-            <UpArrow />
-          )
-        ) : (
-          ""
-        )}
+        <SortArrow sortKey={key} headerKey="name" direction={direction} />
       </HeaderItem>
       <HeaderItem
         onClick={() => {
@@ -85,15 +69,7 @@ const TableHeader = () => {
         }}
       >
         Age
-        {key == "age" ? (
-          direction == "ascending" ? (
-            <DownArrow />
-          ) : (
-            <UpArrow />
-          )
-        ) : (
-          ""
-        )}
+        <SortArrow sortKey={key} headerKey="age" direction={direction} />
       </HeaderItem>
       <HeaderItem
         onClick={() => {
@@ -101,15 +77,7 @@ const TableHeader = () => {
         }}
       >
         Gender
-        {key == "gender" ? (
-          direction == "ascending" ? (
-            <DownArrow />
-          ) : (
-            <UpArrow />
-          )
-        ) : (
-          ""
-        )}
+        <SortArrow sortKey={key} headerKey="gender" direction={direction} />
       </HeaderItem>
       <HeaderItem
         onClick={() => {
@@ -117,18 +85,22 @@ const TableHeader = () => {
         }}
       >
         Email
-        {key == "email" ? (
-          direction == "ascending" ? (
-            <DownArrow />
-          ) : (
-            <UpArrow />
-          )
-        ) : (
-          ""
-        )}
+        <SortArrow sortKey={key} headerKey="email" direction={direction} />
       </HeaderItem>
       <HeaderItem>Actions</HeaderItem>
     </Container>
+  );
+};
+
+const SortArrow = ({ sortKey, headerKey, direction }) => {
+  return sortKey == headerKey ? (
+    direction == "ascending" ? (
+      <DownArrow />
+    ) : (
+      <UpArrow />
+    )
+  ) : (
+    ""
   );
 };
 

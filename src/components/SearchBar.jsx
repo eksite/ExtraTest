@@ -10,6 +10,7 @@ import Styled from "styled-components";
 const RadioContainer = Styled(RadioGroup)`
   display: flex;
   flex-direction: row;
+  margin-left: 18px;
   align-items: center;
   justify-content: center;
 `;
@@ -39,10 +40,15 @@ const SearchBar = () => {
 
   return (
     <Container>
-      <input onChange={handleChange} placeholder="find data"/>
-      <RadioContainer row value={filterBy} onChange={handleRadio} name="customized-radios">
-        <FormControlLabel value="key"  control={<Radio />} label="key" />
-        <FormControlLabel value="regex"  control={<Radio />} label="regex" />
+      <input onChange={handleChange} placeholder="find data" />
+      <RadioContainer
+        row
+        value={filterBy}
+        onChange={handleRadio}
+        name="customized-radios"
+      >
+        <FormControlLabel value="key" control={<Radio />} label="key" />
+        <FormControlLabel value="regex" control={<Radio />} label="regex" />
       </RadioContainer>
     </Container>
   );

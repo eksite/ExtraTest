@@ -33,7 +33,7 @@ const compareBy = (filterBy) => {
     case "key":
       return (value, search) => value.toLowerCase() === search.toLowerCase();
     case "regex":
-      return (value, search) => toRegex(search);
+      return (value, search) => toRegex(search).test(value);
     default:
       return () => false;
   }

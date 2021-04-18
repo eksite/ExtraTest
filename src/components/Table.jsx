@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import TableRow from "./RowItem.jsx";
+import TableRow from "./TableRow.jsx";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeList as List } from "react-window";
 import { useSelector } from "react-redux";
 import TableHeader from "./TableHeader.jsx";
-
 import {
   sortString,
   filterByKey,

@@ -6,6 +6,7 @@ import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import DoneIcon from "@material-ui/icons/Done";
 import ClearOutlined from "@material-ui/icons/ClearOutlined";
 import Styled from "styled-components";
+import { TextHighlighter } from "./TextHighlighter.jsx";
 
 const Container = Styled.div`
   display: flex;
@@ -29,7 +30,6 @@ const RowItemContainer = Styled.div`
 `;
 
 const TableRow = ({ data, style, index }) => {
-  console.log(data[index]);
   const { _id, name, age, gender, email } = data[index];
   const [newName, setNewName] = useState(name);
   const [newAge, setNewAge] = useState(age);
@@ -57,32 +57,34 @@ const TableRow = ({ data, style, index }) => {
 
   return (
     <Container style={style}>
-      <RowItemContainer>{_id}</RowItemContainer>
-      {!editToggle ? (
-        <RowItemContainer>{name}</RowItemContainer>
-      ) : (
-        <RowItemContainer>
-          <input value={newName} onChange={(e) => setNewName(e.target.value)} />
-        </RowItemContainer>
-      )}
-      {!editToggle ? (
-        <RowItemContainer>{age}</RowItemContainer>
-      ) : (
-        <RowItemContainer>
-          <input value={newAge} onChange={(e) => setNewAge(e.target.value)} />
-        </RowItemContainer>
-      )}
+      <RowItemContainer>
+        <TextHighlighter>{_id}</TextHighlighter>
+      </RowItemContainer>
+      <RowItemContainer>
+        <EditableTextCell
+          newValue={newName}
+          value={name}
+          editMode={editToggle}
+          handleChange={(e) => setNewName(e.target.value)}
+        />
+      </RowItemContainer>
+      <RowItemContainer>
+        <EditableTextCell
+          newValue={newAge}
+          value={age}
+          editMode={editToggle}
+          handleChange={(e) => setNewAge(e.target.value)}
+        />
+      </RowItemContainer>
       <RowItemContainer>{gender}</RowItemContainer>
-      {!editToggle ? (
-        <RowItemContainer>{email}</RowItemContainer>
-      ) : (
-        <RowItemContainer>
-          <input
-            value={newEmail}
-            onChange={(e) => setNewEmail(e.target.value)}
-          />
-        </RowItemContainer>
-      )}
+      <RowItemContainer>
+        <EditableTextCell
+          newValue={newEmail}
+          value={email}
+          editMode={editToggle}
+          handleChange={(e) => setNewEmail(e.target.value)}
+        />
+      </RowItemContainer>
       <RowItemContainer>
         {!editToggle ? (
           <>
@@ -97,6 +99,18 @@ const TableRow = ({ data, style, index }) => {
         )}
       </RowItemContainer>
     </Container>
+  );
+};
+
+const EditableTextCell = ({ value, newValue, editMode, handleChange }) => {
+  return (
+    <>
+      {editMode ? (
+        <input value={newValue} onChange={handleChange} />
+      ) : (
+        <TextHighlighter>{value}</TextHighlighter>
+      )}
+    </>
   );
 };
 

@@ -22,19 +22,23 @@ const SelectContainer = Styled.div`
 `;
 
 const EMAIL_REGEX = new RegExp(
-  "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+  "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"
 );
 
 const initialState = {
   name: "",
   age: 0,
   email: "",
-  gender: "",
+  gender: "male",
+  nameDirty: false,
+  ageDirty: false,
+  emailDirty: false,
 };
 
 const ACTIONS = {
   RESET_STATE: "reset_state",
   UPDATE_VALUE: "update_value",
+  ALL_DIRTY: "all_dirty"
 };
 
 const rowReducer = (state, action) => {
@@ -42,7 +46,14 @@ const rowReducer = (state, action) => {
     case ACTIONS.RESET_STATE:
       return initialState;
     case ACTIONS.UPDATE_VALUE: {
-      return { ...state, [action.payload.key]: action.payload.value };
+      return {
+        ...state,
+        [action.payload.key]: action.payload.value,
+        [action.payload.dirtyName]: true,
+      };
+    }
+    case ACTIONS.ALL_DIRTY: {
+      return { ...state, nameDirty: true, ageDirty: true, emailDirty: true };
     }
     default:
       return state;
@@ -61,16 +72,12 @@ const isValidEmail = (email) => {
   return EMAIL_REGEX.test(email);
 };
 
-const isValidGender = (gender) => {
-  return gender;
-};
-
 const AddNewRecord = () => {
   const reduxDispatch = useDispatch();
   const [state, dispatch] = useReducer(rowReducer, initialState);
 
   const handleSubmit = () => {
-    console.log(state);
+    dispatch({type: ACTIONS.ALL_DIRTY})
     if (isValidRecord()) {
       reduxDispatch(
         addRecord({
@@ -88,33 +95,40 @@ const AddNewRecord = () => {
     return (
       isValidEmail(state.email) &&
       isValidName(state.name) &&
-      isValidAge(state.age) &&
-      isValidGender(state.gender)
+      isValidAge(state.age)
     );
   };
 
   return (
     <Container>
       <TextField
-        helperText={!isValidName(state.name) ? "Enter name" : ""}
+        helperText={"Enter name"}
+        error={state.nameDirty && !isValidName(state.name)}
         value={state.name}
-        placeholder="name"
         onChange={(e) =>
           dispatch({
             type: ACTIONS.UPDATE_VALUE,
-            payload: { value: e.target.value, key: "name" },
+            payload: {
+              value: e.target.value,
+              key: "name",
+              dirtyName: "nameDirty",
+            },
           })
         }
       />
 
       <TextField
-        helperText={!isValidAge(state.age) ? "Enter age" : ""}
+        helperText={"Enter age"}
+        error={state.ageDirty && !isValidAge(state.age)}
         value={state.age == 0 ? "" : state.age}
-        placeholder="age"
         onChange={(e) =>
           dispatch({
             type: ACTIONS.UPDATE_VALUE,
-            payload: { value: e.target.value, key: "age" },
+            payload: {
+              value: e.target.value,
+              key: "age",
+              dirtyName: "ageDirty",
+            },
           })
         }
       />
@@ -132,18 +146,21 @@ const AddNewRecord = () => {
           <MenuItem value={"female"}>Female</MenuItem>
           <MenuItem value={"new"}>New</MenuItem>
         </Select>
-        {!isValidGender(state.gender) ? (
-          <FormHelperText>Choose gender</FormHelperText>
-        ) : null}
+
+        <FormHelperText>Choose gender</FormHelperText>
       </SelectContainer>
       <TextField
-        helperText={!isValidEmail(state.email) ? "Enter email" : ""}
+        helperText={"Enter email"}
+        error={state.emailDirty && !isValidEmail(state.email)}
         value={state.email}
-        placeholder="email"
         onChange={(e) =>
           dispatch({
             type: ACTIONS.UPDATE_VALUE,
-            payload: { value: e.target.value, key: "email" },
+            payload: {
+              value: e.target.value,
+              key: "email",
+              dirtyName: "emailDirty",
+            },
           })
         }
       />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
 import { removeRow, editData } from "../redux/dataSlice.jsx";
@@ -7,6 +7,7 @@ import DoneIcon from "@material-ui/icons/Done";
 import ClearOutlined from "@material-ui/icons/ClearOutlined";
 import Styled from "styled-components";
 import { TextHighlighter } from "./TextHighlighter.jsx";
+import EditableTextCell from "./EditableTextCell.jsx";
 
 const Container = Styled.div`
   display: flex;
@@ -16,7 +17,7 @@ const Container = Styled.div`
   width: 100%;
   justify-content: center;
   &:hover {
-    background: gray;
+    background: #f1e4de;
   }
 `;
 const RowItemContainer = Styled.div`
@@ -34,28 +35,26 @@ const RowItemContainer = Styled.div`
 
 const TableRow = ({ data, style, index }) => {
   const { _id, name, age, gender, email } = data[index];
-  const [newName, setNewName] = useState(name);
-  const [newAge, setNewAge] = useState(age);
-  const [newEmail, setNewEmail] = useState(email);
+  const [record, setRecord] = useState(data[index]);
   const [editToggle, setEditToggle] = useState(false);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setRecord(data[index]);
+  }, [data[index]]);
 
   const removeItem = () => {
     dispatch(removeRow({ id: _id }));
   };
 
   const handleEdit = () => {
-    dispatch(
-      editData({ id: _id, name: newName, age: newAge, email: newEmail })
-    );
+    dispatch(editData(record));
     refreshInputs();
   };
 
   const refreshInputs = () => {
     setEditToggle(!editToggle);
-    setNewAge(age);
-    setNewEmail(email);
-    setNewName(name);
+    setRecord(data[index]);
   };
 
   return (
@@ -65,27 +64,27 @@ const TableRow = ({ data, style, index }) => {
       </RowItemContainer>
       <RowItemContainer>
         <EditableTextCell
-          newValue={newName}
+          inputValue={record.name}
           value={name}
           editMode={editToggle}
-          handleChange={(e) => setNewName(e.target.value)}
+          handleChange={(e) => setRecord({ ...record, name: e.target.value })}
         />
       </RowItemContainer>
       <RowItemContainer>
         <EditableTextCell
-          newValue={newAge}
+          inputValue={record.age}
           value={age}
           editMode={editToggle}
-          handleChange={(e) => setNewAge(e.target.value)}
+          handleChange={(e) => setRecord({ ...record, age: e.target.value })}
         />
       </RowItemContainer>
       <RowItemContainer>{gender}</RowItemContainer>
       <RowItemContainer>
         <EditableTextCell
-          newValue={newEmail}
+          inputValue={record.email}
           value={email}
           editMode={editToggle}
-          handleChange={(e) => setNewEmail(e.target.value)}
+          handleChange={(e) => setRecord({ ...record, email: e.target.value })}
         />
       </RowItemContainer>
       <RowItemContainer>
@@ -102,18 +101,6 @@ const TableRow = ({ data, style, index }) => {
         )}
       </RowItemContainer>
     </Container>
-  );
-};
-
-const EditableTextCell = ({ value, newValue, editMode, handleChange }) => {
-  return (
-    <>
-      {editMode ? (
-        <input value={newValue} onChange={handleChange} />
-      ) : (
-        <TextHighlighter>{value}</TextHighlighter>
-      )}
-    </>
   );
 };
 

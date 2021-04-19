@@ -6,6 +6,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import { debounce } from "lodash";
 import Radio from "@material-ui/core/Radio";
 import Styled from "styled-components";
+import TextField from "@material-ui/core/TextField";
 
 const RadioContainer = Styled(RadioGroup)`
   display: flex;
@@ -40,13 +41,8 @@ const SearchBar = () => {
 
   return (
     <Container>
-      <input onChange={handleChange} placeholder="find data" />
-      <RadioContainer
-        row
-        value={filterBy}
-        onChange={handleRadio}
-        name="customized-radios"
-      >
+      <TextField onChange={handleChange} placeholder="find data" />
+      <RadioContainer row value={filterBy} onChange={handleRadio}>
         <FormControlLabel value="key" control={<Radio />} label="key" />
         <FormControlLabel value="regex" control={<Radio />} label="regex" />
       </RadioContainer>

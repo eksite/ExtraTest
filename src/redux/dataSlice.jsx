@@ -11,7 +11,7 @@ export const dataSlice = createSlice({
     loadFromJson: (state, action) => {
       state.data = action.payload.data;
     },
-    addRow: (state, action) => {
+    addRecord: (state, action) => {
       const { name, gender, age, email } = action.payload;
       state.data.push({
         _id: ++ID,
@@ -25,14 +25,14 @@ export const dataSlice = createSlice({
       state.data = state.data.filter((item) => item._id !== action.payload.id);
     },
     editData: (state, action) => {
-      const { id, name, age, email } = action.payload;
+      const { _id, name, age, email } = action.payload;
       state.data = state.data.map((item) =>
-        item._id == id ? { ...item, name: name, age: age, email: email } : item
+        item._id == _id ? { ...item, name: name, age: age, email: email } : item
       );
     },
   },
 });
 
-export const { loadFromJson, removeRow, editData, addRow } = dataSlice.actions;
+export const { loadFromJson, removeRow, editData, addRecord } = dataSlice.actions;
 
 export default dataSlice.reducer;

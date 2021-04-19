@@ -1,56 +1,43 @@
-import React, { useState } from "react";
+import React from "react";
 import Table from "./Table.jsx";
 import SearchBar from "./SearchBar.jsx";
-import AddNewRow from "./AddNewRow.jsx";
-import { Button } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
-import RemoveOutlinedIcon from "@material-ui/icons/RemoveOutlined";
+import AddNewRecord from "./AddNewRecord.jsx";
+
 import Styled from "styled-components";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useSelector } from "react-redux";
 
-const Container = Styled.div`
+const AddRecordContainer = Styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  width: 40%;
+  align-items: center;
+  margin: 0 auto;
 `;
 
-const AddRowContainer = Styled.div`
+const LoadingContainer = Styled.div`
   display: flex;
-  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
   justify-content: center;
-  align-items: space-between;
-  width: 44%;
 `;
 
 const Page = () => {
   const { data } = useSelector((state) => state.dataFromJson);
-  const [addRowToggle, setAddRowToggle] = useState(false);
-  const handleToggle = () => {
-    setAddRowToggle(!addRowToggle);
-  };
 
-  return data ? (
+  return data.length ? (
     <>
       <SearchBar />
-      <Container>
-        {addRowToggle ? (
-          <AddRowContainer>
-            <Button onClick={handleToggle}>
-              <RemoveOutlinedIcon /> <div>Hide</div>
-            </Button>
-            <AddNewRow />
-          </AddRowContainer>
-        ) : (
-          <Button onClick={handleToggle}>
-            <AddIcon /> <div>Add</div>
-          </Button>
-        )}
-      </Container>
+      <AddRecordContainer>
+        <AddNewRecord />
+      </AddRecordContainer>
       <Table />
     </>
   ) : (
-    <CircularProgress />
+    <LoadingContainer>
+      <CircularProgress />
+    </LoadingContainer>
   );
 };
 

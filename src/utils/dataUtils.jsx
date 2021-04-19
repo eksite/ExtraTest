@@ -15,7 +15,6 @@ const filterByKey = (data, text) => {
 
 const filterByRegex = (data, text) => {
   const regex = new RegExp(text);
-  console.log(regex);
   return data.filter(
     (item) =>
       regex.test(item._id) ||

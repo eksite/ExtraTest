@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import TableRow from "./TableRow.jsx";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeList as List } from "react-window";
@@ -10,11 +10,16 @@ import {
   filterByRegex,
   sortNumber,
 } from "../utils/dataUtils.jsx";
+import Styled from "styled-components";
+
+const TableContainer = Styled.div`
+  height: 74%;
+`;
 
 const Table = () => {
   const data = useSelector((state) => {
     const { value: searchString, filterBy } = state.filter;
-    const { data } = state.dataFromJson;
+    const data = state.dataFromJson.data;
     if (searchString) {
       const filteredData =
         filterBy == "key"
@@ -41,7 +46,7 @@ const Table = () => {
   return (
     <>
       <TableHeader />
-      <div style={{ height: "74%", width: "100%" }}>
+      <TableContainer>
         <AutoSizer>
           {({ height, width }) => (
             <List
@@ -57,7 +62,7 @@ const Table = () => {
             </List>
           )}
         </AutoSizer>
-      </div>
+      </TableContainer>
     </>
   );
 };

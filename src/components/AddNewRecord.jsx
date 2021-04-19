@@ -88,7 +88,8 @@ const AddNewRecord = () => {
     return (
       isValidEmail(state.email) &&
       isValidName(state.name) &&
-      isValidAge(state.age)
+      isValidAge(state.age) &&
+      isValidGender(state.gender)
     );
   };
 

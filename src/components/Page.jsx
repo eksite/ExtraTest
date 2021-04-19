@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 const AddRecordContainer = Styled.div`
   display: flex;
   flex-direction: row;
-  width: 40%;
+  width: 55%;
   align-items: center;
   margin: 0 auto;
 `;

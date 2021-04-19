@@ -2,7 +2,6 @@ import React from "react";
 import Table from "./Table.jsx";
 import SearchBar from "./SearchBar.jsx";
 import AddNewRecord from "./AddNewRecord.jsx";
-
 import Styled from "styled-components";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useSelector } from "react-redux";

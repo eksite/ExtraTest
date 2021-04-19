@@ -1,16 +1,11 @@
 const filterByKey = (data, text) => {
-  if (isNaN(text)) {
-    return data.filter(
-      (item) =>
-        item.name.toLowerCase().includes(text.toLowerCase()) ||
-        item.email.toLowerCase().includes(text.toLowerCase())
-    );
-  } else {
-    return data.filter(
-      (item) =>
-        item._id.toString().includes(text) || item.age.toString().includes(text)
-    );
-  }
+  return data.filter(
+    (item) =>
+      item.name.toLowerCase().includes(text.toLowerCase()) ||
+      item.email.toLowerCase().includes(text.toLowerCase()) ||
+      item._id.toString().includes(text) ||
+      item.age.toString().includes(text)
+  );
 };
 
 const filterByRegex = (data, text) => {

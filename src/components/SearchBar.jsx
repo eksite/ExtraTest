@@ -41,7 +41,7 @@ const SearchBar = () => {
 
   return (
     <Container>
-      <TextField onChange={handleChange} placeholder="find data" />
+      <TextField onChange={handleChange} placeholder={filterBy=="key" ? "ex. fry": "ex. t{3}"}/>
       <RadioContainer row value={filterBy} onChange={handleRadio}>
         <FormControlLabel value="key" control={<Radio />} label="key" />
         <FormControlLabel value="regex" control={<Radio />} label="regex" />
